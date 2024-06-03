@@ -1,5 +1,6 @@
 package com.vannguyenv12.food;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -36,13 +37,16 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        testUser(retrofit);
+        Intent myIntent = new Intent(MainActivity.this, CartActivity.class);
+        startActivity(myIntent);
+
+//        testUser(retrofit);
     }
 
     private void testUser(Retrofit retrofit) {
         UserApiService service = retrofit.create(UserApiService.class);
 
-        User newUser = new User("test1@gmail.com", "test1234", "Van", "Nguyen", "user");
+        User newUser = new User(1, "test1@gmail.com", "test1234", "Van", "Nguyen", "user");
 
         Call<Void> call = service.register(API_KEY, "application/json", newUser);
 
@@ -72,8 +76,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         Call<List<Food>> call = service.getFoods(API_KEY);
-
-
 
         call.enqueue(new Callback<List<Food>>() {
             @Override
