@@ -89,6 +89,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
+                        ((CartActivity) context).fetchCartTotal();
                         cartItems.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, cartItems.size());
@@ -118,7 +119,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (!response.isSuccessful()) {
                     // Xử lý lỗi khi không thể cập nhật số lượng
+
                 }
+                ((CartActivity) context).fetchCartTotal();
             }
 
             @Override

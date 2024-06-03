@@ -187,6 +187,7 @@ public class CartActivity extends AppCompatActivity {
                         cartTotal[0] += (cart.getQuantity() * cart.getPrice());
                     }
 
+                    System.out.println("check cart total: " + cartTotal[0]);
                     fetchApi(cartTotal[0]);
 
                 } else {
