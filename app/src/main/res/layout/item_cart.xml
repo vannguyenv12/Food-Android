@@ -52,17 +52,29 @@
 
 
     <!-- Decrease quantity button -->
+<!--    <Button-->
+<!--        android:id="@+id/decrease_quantity"-->
+<!--        android:layout_width="32dp"-->
+<!--        android:layout_height="32dp"-->
+<!--        android:layout_below="@id/pizza_price"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_toEndOf="@id/pizza_image"-->
+<!--        android:text="-"-->
+<!--        android:textColor="#FFFFFF"-->
+<!--        android:textSize="18sp" />-->
+
+    <!-- Decrease quantity button -->
     <Button
         android:id="@+id/decrease_quantity"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/pizza_price"
-        android:layout_marginStart="16dp"
         android:layout_toEndOf="@id/pizza_image"
-        android:background="@drawable/button_background"
+        android:layout_marginStart="16dp"
         android:text="-"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:gravity="center" />
 
     <!-- Quantity Text -->
     <TextView
@@ -72,23 +84,36 @@
         android:layout_below="@id/pizza_price"
         android:layout_toEndOf="@id/decrease_quantity"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="2"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:gravity="center" />
 
-    <!-- Increase quantity button -->
+<!--    &lt;!&ndash; Increase quantity button &ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/increase_quantity"-->
+<!--        android:layout_width="32dp"-->
+<!--        android:layout_height="32dp"-->
+<!--        android:layout_below="@id/pizza_price"-->
+<!--        android:layout_toEndOf="@id/quantity_text"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:text="+"-->
+<!--        android:textColor="#FFFFFF"-->
+<!--        android:textSize="18sp" />-->
+
+    <!-- Decrease quantity button -->
     <Button
         android:id="@+id/increase_quantity"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/pizza_price"
         android:layout_toEndOf="@id/quantity_text"
         android:layout_marginStart="8dp"
-        android:background="@drawable/button_background"
         android:text="+"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:gravity="center" />
 
     <!-- Remove item button -->
     <ImageButton

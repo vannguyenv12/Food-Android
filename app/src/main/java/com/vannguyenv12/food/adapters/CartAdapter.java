@@ -12,6 +12,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.stripe.android.PaymentConfiguration;
+import com.stripe.android.paymentsheet.PaymentSheet;
+import com.vannguyenv12.food.CartActivity;
 import com.vannguyenv12.food.R;
 import com.vannguyenv12.food.api.CartApiService;
 import com.vannguyenv12.food.api.FoodApiService;
@@ -19,7 +27,13 @@ import com.vannguyenv12.food.modal.Cart;
 import com.vannguyenv12.food.utils.Constant;
 import com.vannguyenv12.food.utils.RetrofitClient;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -96,6 +110,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     private void updateCartQuantity(Cart cartItem, int position) {
+
         CartApiService apiService = RetrofitClient.retrofit.create(CartApiService.class);
 
         apiService.updateCartQuantity(Constant.API_KEY, Constant.CONTENT_TYPE, "eq." + String.valueOf(cartItem.getId()), cartItem).enqueue(new Callback<Void>() {
