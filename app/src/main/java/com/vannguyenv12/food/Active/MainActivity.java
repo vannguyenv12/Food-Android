@@ -1,6 +1,11 @@
-package com.vannguyenv12.food;
+package com.vannguyenv12.food.Active;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.vannguyenv12.food.R;
 import com.vannguyenv12.food.api.FoodApiService;
 import com.vannguyenv12.food.api.UserApiService;
 import com.vannguyenv12.food.modal.Food;
@@ -29,14 +35,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        if(checkInternetConnection()){
+            Intent intent = new Intent(MainActivity.this, ViewFood.class);
+            startActivity(intent);
+            finish();
+        } else {
+            // Nếu không có kết nối internet, hiển thị popup thông báo lỗi
+            Toast.makeText(this, "Network is not connected", Toast.LENGTH_LONG).show();
+        }
 
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://bpmendenqkibzupdgmtp.supabase.co/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        testUser(retrofit);
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("https://bpmendenqkibzupdgmtp.supabase.co/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        testUser(retrofit);
     }
 
     private void testUser(Retrofit retrofit) {
@@ -96,5 +110,25 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
+    }
+
+
+    private boolean checkInternetConnection() {
+        ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+        if (networkInfo == null) {
+            Toast.makeText(this, "No default network is currently active", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (!networkInfo.isConnected()) {
+            Toast.makeText(this, "Network is not connected", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (!networkInfo.isAvailable()) {
+            Toast.makeText(this, "Network not available", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        Toast.makeText(this, "Network OK", Toast.LENGTH_LONG).show();
+        return true;
     }
 }

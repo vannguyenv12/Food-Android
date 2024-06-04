@@ -13,8 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Food"
         tools:targetApi="31">
+        <activity android:name=".Active.ViewFood"
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".Active.DetailFood"
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".Active.CategoryViewItem.CategoryView1"
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".Active.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

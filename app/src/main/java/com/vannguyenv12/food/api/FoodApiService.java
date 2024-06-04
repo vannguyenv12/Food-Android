@@ -18,9 +18,16 @@ public interface FoodApiService {
     Call<List<Food>> getFoods(@Header("apikey") String apiKey);
 
     @GET("rest/v1/food")
-    Call<List<Food>> getFood(
+    Call<Food> getFood(
             @Header("apikey") String apiKey,
             @Query("id") String id, // "eq.1"
+            @Query("select") String select // "*"
+    );
+
+    @GET("rest/v1/food")
+    Call<List<Food>> getFoodCategory(
+            @Header("apikey") String apiKey,
+            @Query("categoryId") String categoryId, // "eq.1"
             @Query("select") String select // "*"
     );
 
