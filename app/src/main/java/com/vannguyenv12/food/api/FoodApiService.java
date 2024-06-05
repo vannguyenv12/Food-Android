@@ -47,4 +47,5 @@ public interface FoodApiService {
             @Header("apikey") String apiKey,
             @Query("id") Integer id
     );
+
 }

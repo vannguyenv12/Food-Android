@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.vannguyenv12.food.CartActivity;
 import com.vannguyenv12.food.R;
 import com.vannguyenv12.food.api.FoodApiService;
 import com.vannguyenv12.food.api.UserApiService;
@@ -50,13 +52,15 @@ public class MainActivity extends AppCompatActivity {
 //                .addConverterFactory(GsonConverterFactory.create())
 //                .build();
 //
-//        testUser(retrofit);
+//        Intent myIntent = new Intent(MainActivity.this, CartActivitys.class);
+//        startActivity(myIntent);
+
     }
 
     private void testUser(Retrofit retrofit) {
         UserApiService service = retrofit.create(UserApiService.class);
 
-        User newUser = new User("test1@gmail.com", "test1234", "Van", "Nguyen", "user");
+        User newUser = new User(1, "test1@gmail.com", "test1234", "Van", "Nguyen", "user");
 
         Call<Void> call = service.register(API_KEY, "application/json", newUser);
 
@@ -86,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         Call<List<Food>> call = service.getFoods(API_KEY);
-
-
 
         call.enqueue(new Callback<List<Food>>() {
             @Override
