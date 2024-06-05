@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,8 +54,15 @@ public class ActivityRegister extends AppCompatActivity {
                 .build();
 
         // Gán sự kiện click cho nút signup
-        signupRedirectText.setOnClickListener(v -> registerUser(retrofit, RFname, RLname, REmail, RPassword));
+//        signupRedirectText.setOnClickListener(v -> registerUser(retrofit, RFname, RLname, REmail, RPassword));
 
+        signupRedirectText.setOnClickListener(v -> {
+            if (validateInputFields()) {
+                registerUser(retrofit, RFname, RLname, REmail, RPassword);
+                Intent intent = new Intent(ActivityRegister.this, ActivityLogin.class);
+                startActivity(intent);
+            }
+        });
 
         loginRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +71,36 @@ public class ActivityRegister extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private boolean validateInputFields() {
+        if (isEmptyField(RFname) || isEmptyField(RLname) || isEmptyField(REmail) || isEmptyField(RPassword) || isEmptyField(RConfirmPassword)) {
+            Toast.makeText(ActivityRegister.this, "All fields are required", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (!isValidEmail(REmail.getText().toString().trim())) {
+            Toast.makeText(ActivityRegister.this, "Invalid email format", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (!isPasswordMatching()) {
+            Toast.makeText(ActivityRegister.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isEmptyField(EditText field) {
+        return field.getText().toString().trim().isEmpty();
+    }
+
+    private boolean isValidEmail(String email) {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+
+    private boolean isPasswordMatching() {
+        String password = RPassword.getText().toString().trim();
+        String confirmPassword = RConfirmPassword.getText().toString().trim();
+        return password.equals(confirmPassword);
     }
 
     private void registerUser(Retrofit retrofit, EditText firstNameField, EditText lastNameField, EditText emailField, EditText passwordField) {

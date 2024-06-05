@@ -11,6 +11,7 @@ import com.vannguyenv12.food.modal.User;
 import retrofit2.Retrofit;
 
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,7 +46,11 @@ public class ActivityLogin extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(validateInputFields())
+                {
                     getUsers();
+                }
+
             }
         });
 
@@ -57,6 +62,27 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
     }
+
+    private boolean validateInputFields() {
+        if (isEmptyField(loginUsername) || isEmptyField(loginPassword) ) {
+            Toast.makeText(ActivityLogin.this, "All fields are required", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+        return true;
+    }
+
+    private boolean isEmptyField(EditText field) {
+        return field.getText().toString().trim().isEmpty();
+    }
+
+    private boolean isValidEmail(String email) {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+
+
 
     private void getUsers() {
         String email = loginUsername.getText().toString().trim();
@@ -89,6 +115,7 @@ public class ActivityLogin extends AppCompatActivity {
                         Toast.makeText(ActivityLogin.this, "Login successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ActivityLogin.this, newlistuser.class);
                         startActivity(intent);
+
                         // Chuyển sang Activity khác hoặc xử lý logic sau khi đăng nhập thành công
                     } else {
                         // Đăng nhập thất bại
