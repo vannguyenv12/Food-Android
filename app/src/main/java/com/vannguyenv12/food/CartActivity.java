@@ -1,6 +1,7 @@
 package com.vannguyenv12.food;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,8 @@ import com.android.volley.toolbox.Volley;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.paymentsheet.PaymentSheet;
 import com.stripe.android.paymentsheet.PaymentSheetResult;
+import com.vannguyenv12.food.Active.DetailFood;
+import com.vannguyenv12.food.Active.ViewFood;
 import com.vannguyenv12.food.adapters.CartAdapter;
 import com.vannguyenv12.food.api.CartApiService;
 import com.vannguyenv12.food.api.FoodApiService;
@@ -30,6 +33,7 @@ import com.vannguyenv12.food.modal.Cart;
 import com.vannguyenv12.food.modal.Food;
 import com.vannguyenv12.food.utils.Constant;
 import com.vannguyenv12.food.utils.RetrofitClient;
+import com.vannguyenv12.food.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,6 +98,9 @@ public class CartActivity extends AppCompatActivity {
         }
 
         if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
+            Utils.removeAllCarts("1");
+            Intent intent = new Intent(CartActivity.this, ViewFood.class);
+            startActivity(intent);
             Toast.makeText(this, "Completed", Toast.LENGTH_SHORT).show();
         }
     }

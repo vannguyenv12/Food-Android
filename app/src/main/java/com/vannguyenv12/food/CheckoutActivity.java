@@ -42,12 +42,20 @@ import com.stripe.android.model.PaymentMethodCreateParams;
 import com.stripe.android.paymentsheet.PaymentSheet;
 import com.stripe.android.paymentsheet.PaymentSheetResult;
 import com.stripe.android.view.CardInputWidget;
+import com.vannguyenv12.food.api.CartApiService;
+import com.vannguyenv12.food.utils.Constant;
+import com.vannguyenv12.food.utils.RetrofitClient;
+import com.vannguyenv12.food.utils.Utils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class CheckoutActivity extends AppCompatActivity {
@@ -62,6 +70,8 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_checkout);
+
+        
         fetchApi();
 
         Button button = findViewById(R.id.pay_now);
@@ -79,6 +89,7 @@ public class CheckoutActivity extends AppCompatActivity {
         });
 
         paymentSheet = new PaymentSheet(this, this::onPaymentSheetResult);
+
     }
 
     private void onPaymentSheetResult(final PaymentSheetResult paymentSheetResult) {

@@ -1,6 +1,8 @@
 package com.vannguyenv12.food.Active;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,8 +16,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
 import com.bumptech.glide.Glide;
+import com.vannguyenv12.food.CartActivity;
 import com.vannguyenv12.food.R;
+import com.vannguyenv12.food.api.CartApiService;
+import com.vannguyenv12.food.modal.Cart;
 import com.vannguyenv12.food.modal.Food;
+import com.vannguyenv12.food.utils.Constant;
+import com.vannguyenv12.food.utils.RetrofitClient;
+import com.vannguyenv12.food.utils.Utils;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailFood extends AppCompatActivity {
     TextView ten_ct_sp, gia_ct_sp, mota_ct_sp;
@@ -32,6 +44,7 @@ public class DetailFood extends AppCompatActivity {
         loadID();
         ActionBar();
         getData();
+        handleAddCart();
     }
 
 
@@ -71,6 +84,36 @@ public class DetailFood extends AppCompatActivity {
         image_ct_sp = findViewById(R.id.image_ct_sp);
         toolbar_ct_sp = findViewById(R.id.toolbar_ct_sp);
         spinner = findViewById(R.id.spiner);
+    }
+
+    private void handleAddCart() {
+        CartApiService apiService =  RetrofitClient.retrofit.create(CartApiService.class);
+
+        Food food = (Food)getIntent().getSerializableExtra("chitiet");
+
+        Cart newCart = new Cart(Utils.generateRandomNumber(),food.getId(), food.getName(), food.getPrice(), 1, 1, food.getImage());
+
+        btnThemvaoGioHang.setOnClickListener(view -> {
+            Call<Void> call = apiService.createCart(Constant.API_KEY, newCart);
+
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        Log.d("Retrofit", "Cart created successfully");
+                        Intent intent = new Intent(DetailFood.this, CartActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Log.d("Retrofit", "Failed to create cart: " + response.code());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Log.d("Retrofit", "Error: " + t.getMessage());
+                }
+            });
+        });
     }
 
 }

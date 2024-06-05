@@ -18,9 +18,19 @@ public interface CartApiService {
     @GET("rest/v1/carts")
     Call<List<Cart>> getCarts(@Header("apikey") String apiKey);
 
+    @POST("rest/v1/carts")
+    Call<Void> createCart(
+            @Header("apikey") String apiKey,
+            @Body Cart cart
+    );
+
     @DELETE("rest/v1/carts")
     Call<Void> deleteCart(@Header("apikey") String apiKey,
                           @Query("id") String id);
+
+    @DELETE("rest/v1/carts")
+    Call<Void> deleteAllCart(@Header("apikey") String apiKey,
+                          @Query("userId") String userId);
 
     @PATCH("rest/v1/carts")
     Call<Void> updateCartQuantity(@Header("apikey") String apiKey,

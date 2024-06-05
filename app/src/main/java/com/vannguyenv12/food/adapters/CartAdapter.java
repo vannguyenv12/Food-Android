@@ -17,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.paymentsheet.PaymentSheet;
 import com.vannguyenv12.food.CartActivity;
@@ -63,7 +64,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.pizzaPrice.setText("$" + cartItem.getPrice());
         holder.quantityText.setText(String.valueOf(cartItem.getQuantity()));
         // Giả định rằng tất cả các mục đều dùng chung một hình ảnh
-        holder.pizzaImage.setImageResource(R.drawable.sample_pizza_image);
+        Glide.with(context).load(cartItem.getProductImage()).into(holder.pizzaImage);
 
         holder.increaseQuantity.setOnClickListener(v -> {
             cartItem.setQuantity(cartItem.getQuantity() + 1);

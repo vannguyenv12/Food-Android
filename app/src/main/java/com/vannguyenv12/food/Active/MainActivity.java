@@ -37,14 +37,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        if(checkInternetConnection()){
-            Intent intent = new Intent(MainActivity.this, ViewFood.class);
-            startActivity(intent);
-            finish();
-        } else {
-            // Nếu không có kết nối internet, hiển thị popup thông báo lỗi
-            Toast.makeText(this, "Network is not connected", Toast.LENGTH_LONG).show();
-        }
+        Intent intent = new Intent(MainActivity.this, ViewFood.class);
+        startActivity(intent);
+        finish();
 
 
 //        Retrofit retrofit = new Retrofit.Builder()
