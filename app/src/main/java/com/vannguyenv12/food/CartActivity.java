@@ -32,6 +32,7 @@ import com.vannguyenv12.food.api.CartApiService;
 import com.vannguyenv12.food.api.FoodApiService;
 import com.vannguyenv12.food.modal.Cart;
 import com.vannguyenv12.food.modal.Food;
+import com.vannguyenv12.food.modal.Holder;
 import com.vannguyenv12.food.utils.Constant;
 import com.vannguyenv12.food.utils.RetrofitClient;
 import com.vannguyenv12.food.utils.Utils;
@@ -113,7 +114,7 @@ public class CartActivity extends AppCompatActivity {
         }
 
         if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
-            Utils.removeAllCarts("1");
+            Utils.removeAllCarts(String.valueOf(Holder.user.getId()));
             Intent intent = new Intent(CartActivity.this, ViewFood.class);
             startActivity(intent);
             Toast.makeText(this, "Completed", Toast.LENGTH_SHORT).show();
@@ -169,8 +170,9 @@ public class CartActivity extends AppCompatActivity {
     private void fetchCarts() {
         CartApiService service = RetrofitClient.retrofit.create(CartApiService.class);
 
+        System.out.println("check user id: " + String.valueOf(Holder.user.getId()));
 
-        Call<List<Cart>> call = service.getCarts(Constant.API_KEY);
+        Call<List<Cart>> call = service.getCarts(Constant.API_KEY, "eq." + String.valueOf(Holder.user.getId()));
 
         call.enqueue(new Callback<List<Cart>>() {
             @Override
@@ -198,7 +200,7 @@ public class CartActivity extends AppCompatActivity {
         final int[] cartTotal = {0};
         CartApiService service = RetrofitClient.retrofit.create(CartApiService.class);
 
-        Call<List<Cart>> call = service.getCarts(Constant.API_KEY);
+        Call<List<Cart>> call = service.getCarts(Constant.API_KEY, "eq." + String.valueOf(Holder.user.getId()));
 
         call.enqueue(new Callback<List<Cart>>() {
             @Override

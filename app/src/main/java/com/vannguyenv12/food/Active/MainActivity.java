@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.vannguyenv12.food.ActivityLogin;
 import com.vannguyenv12.food.CartActivity;
 import com.vannguyenv12.food.R;
 import com.vannguyenv12.food.api.FoodApiService;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(MainActivity.this, ViewFood.class);
+        Intent intent = new Intent(MainActivity.this, ActivityLogin.class);
         startActivity(intent);
         finish();
 

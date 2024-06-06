@@ -23,6 +23,7 @@ import com.vannguyenv12.food.R;
 import com.vannguyenv12.food.api.CartApiService;
 import com.vannguyenv12.food.modal.Cart;
 import com.vannguyenv12.food.modal.Food;
+import com.vannguyenv12.food.modal.Holder;
 import com.vannguyenv12.food.utils.Constant;
 import com.vannguyenv12.food.utils.RetrofitClient;
 import com.vannguyenv12.food.utils.Utils;
@@ -105,7 +106,7 @@ public class DetailFood extends AppCompatActivity {
 
         Food food = (Food)getIntent().getSerializableExtra("chitiet");
 
-        Cart newCart = new Cart(Utils.generateRandomNumber(),food.getId(), food.getName(), food.getPrice(), 1, 1, food.getImage());
+        Cart newCart = new Cart(Utils.generateRandomNumber(),food.getId(), food.getName(), food.getPrice(), 1, Holder.user.getId(), food.getImage());
 
         btnThemvaoGioHang.setOnClickListener(view -> {
             Call<Void> call = apiService.createCart(Constant.API_KEY, newCart);

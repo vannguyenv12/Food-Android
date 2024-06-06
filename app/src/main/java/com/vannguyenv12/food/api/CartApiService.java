@@ -16,7 +16,7 @@ import retrofit2.http.Query;
 
 public interface CartApiService {
     @GET("rest/v1/carts")
-    Call<List<Cart>> getCarts(@Header("apikey") String apiKey);
+    Call<List<Cart>> getCarts(@Header("apikey") String apiKey, @Query("userId") String userId);
 
     @POST("rest/v1/carts")
     Call<Void> createCart(

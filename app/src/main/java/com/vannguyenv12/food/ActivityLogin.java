@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.vannguyenv12.food.Active.ViewFood;
 import com.vannguyenv12.food.api.UserApiService;
+import com.vannguyenv12.food.modal.Holder;
 import com.vannguyenv12.food.modal.User;
 
 import retrofit2.Retrofit;
@@ -106,6 +108,7 @@ public class ActivityLogin extends AppCompatActivity {
                     for (User user : userList) {
                         if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                             loginSuccessful = true;
+                            Holder.user = user;
                             break;
                         }
                     }
@@ -113,7 +116,7 @@ public class ActivityLogin extends AppCompatActivity {
                     if (loginSuccessful) {
                         // Đăng nhập thành công
                         Toast.makeText(ActivityLogin.this, "Login successful", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ActivityLogin.this, newlistuser.class);
+                        Intent intent = new Intent(ActivityLogin.this, ViewFood.class);
                         startActivity(intent);
 
                         // Chuyển sang Activity khác hoặc xử lý logic sau khi đăng nhập thành công
