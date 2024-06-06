@@ -40,4 +40,14 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //    Thêm dòng này vào
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+//    Hết dòng thêm
+
+    implementation 'com.squareup.retrofit2:converter-jackson:2.8.0'
+    //json
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.2'
+    //glider load image
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
 }
