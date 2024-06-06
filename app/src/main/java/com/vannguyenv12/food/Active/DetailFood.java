@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
 import com.bumptech.glide.Glide;
+import com.nex3z.notificationbadge.NotificationBadge;
 import com.vannguyenv12.food.CartActivity;
 import com.vannguyenv12.food.R;
 import com.vannguyenv12.food.api.CartApiService;
@@ -35,6 +37,8 @@ public class DetailFood extends AppCompatActivity {
     ImageView image_ct_sp;
     Toolbar toolbar_ct_sp;
     Spinner spinner;
+    NotificationBadge badge;
+    FrameLayout frameLayout_cart;
 
 
     @Override
@@ -45,6 +49,7 @@ public class DetailFood extends AppCompatActivity {
         ActionBar();
         getData();
         handleAddCart();
+
     }
 
 
@@ -66,7 +71,6 @@ public class DetailFood extends AppCompatActivity {
     private void ActionBar() {
         setSupportActionBar(toolbar_ct_sp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar_ct_sp.setNavigationIcon(android.R.drawable.ic_menu_sort_by_size);
         toolbar_ct_sp.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +88,16 @@ public class DetailFood extends AppCompatActivity {
         image_ct_sp = findViewById(R.id.image_ct_sp);
         toolbar_ct_sp = findViewById(R.id.toolbar_ct_sp);
         spinner = findViewById(R.id.spiner);
+        frameLayout_cart = findViewById(R.id.icon_giohang_deltail);
+
+        frameLayout_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailFood.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void handleAddCart() {
@@ -114,6 +128,7 @@ public class DetailFood extends AppCompatActivity {
                 }
             });
         });
+
     }
 
 }

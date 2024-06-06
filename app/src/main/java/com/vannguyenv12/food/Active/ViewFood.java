@@ -8,6 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ViewFlipper;
@@ -25,6 +26,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.vannguyenv12.food.Active.CategoryViewItem.CategoryView1;
 import com.vannguyenv12.food.Adapter.CategoryViewAdapter;
 import com.vannguyenv12.food.Adapter.FoodRecyclerViewAdapter;
+import com.vannguyenv12.food.CartActivity;
 import com.vannguyenv12.food.R;
 import com.vannguyenv12.food.api.CategoryApiService;
 import com.vannguyenv12.food.api.FoodApiService;
@@ -50,6 +52,8 @@ public class ViewFood extends AppCompatActivity {
     DrawerLayout drawerLayout_trangchu;
     FoodRecyclerViewAdapter foodRecyclerViewAdapter;
     CategoryViewAdapter categoryViewAdapter;
+    FrameLayout frameLayout_cart;
+    ImageView image_sreach;
     List<Category> lstCategory;
     List<Food> lstFood ;
     public final String API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJwbWVuZGVucWtpYnp1cGRnbXRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU3NzQ3NjgsImV4cCI6MjAzMTM1MDc2OH0.H2sdGq2jA3buoYu5se5Xmi5930zPoaO3AcLK_CA-G7I";
@@ -193,6 +197,8 @@ public class ViewFood extends AppCompatActivity {
     public void layID(){
         toolbar_trangchu = findViewById(R.id.toolbar_trangchu);
         viewFlipper_trangchu = findViewById(R.id.viewflipper_trangchu);
+        image_sreach = findViewById(R.id.image_search);
+        frameLayout_cart = findViewById(R.id.icon_giohang);
 
         recyclerView_trangchu = findViewById(R.id.recycle_view_trangchu);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
@@ -202,5 +208,25 @@ public class ViewFood extends AppCompatActivity {
         navigationView_trangchu = findViewById(R.id.navigation_view_trangchu);
         listView_trangchu = findViewById(R.id.listview_trangchu);
         drawerLayout_trangchu = findViewById(R.id.drawer_layout_trangchu);
+
+
+        frameLayout_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewFood.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
+        image_sreach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent search = new Intent(getApplicationContext(), Search.class);
+                startActivity(search);
+            }
+        });
     }
 }

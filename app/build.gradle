@@ -48,4 +48,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     implementation 'com.stripe:stripe-android:20.0.0'
     implementation 'com.android.volley:volley:1.2.1'
+    //notification-cart
+    implementation 'com.nex3z:notification-badge:1.0.4'
 }

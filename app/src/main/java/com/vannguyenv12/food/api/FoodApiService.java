@@ -25,6 +25,13 @@ public interface FoodApiService {
     );
 
     @GET("rest/v1/food")
+    Call<List<Food>> getFoodName(
+            @Header("apikey") String apiKey,
+            @Query("name") String name, // "eq.1"
+            @Query("select") String select // "*"
+    );
+
+    @GET("rest/v1/food")
     Call<List<Food>> getFoodCategory(
             @Header("apikey") String apiKey,
             @Query("categoryId") String categoryId, // "eq.1"

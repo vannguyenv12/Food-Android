@@ -1,8 +1,11 @@
 package com.vannguyenv12.food.Active.CategoryViewItem;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,9 +13,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vannguyenv12.food.Active.Search;
+import com.vannguyenv12.food.Active.ViewFood;
 import com.vannguyenv12.food.Adapter.CategoryViewAdapter;
 import com.vannguyenv12.food.Adapter.FoodRecyclerViewAdapter;
 import com.vannguyenv12.food.Adapter.MenuCategoryAdapter.Item1Adapter;
+import com.vannguyenv12.food.CartActivity;
 import com.vannguyenv12.food.R;
 import com.vannguyenv12.food.api.CategoryApiService;
 import com.vannguyenv12.food.api.FoodApiService;
@@ -35,6 +41,8 @@ public class CategoryView1 extends AppCompatActivity {
 
     int categoryId;
     List<Food> lstFood ;
+    FrameLayout frameLayout_cart;
+    ImageView image_sreach;
 
 
     @Override
@@ -79,7 +87,6 @@ public class CategoryView1 extends AppCompatActivity {
     private void ActionBar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationIcon(android.R.drawable.ic_menu_sort_by_size);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,10 +98,34 @@ public class CategoryView1 extends AppCompatActivity {
 
     public void layID(){
         toolbar = findViewById(R.id.toolbar_view_category_food);
+        image_sreach = findViewById(R.id.image_search);
+        frameLayout_cart = findViewById(R.id.icon_giohang);
 
         recyclerView_category_food = findViewById(R.id.recycle_view_category_food);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView_category_food.setLayoutManager(layoutManager);
         recyclerView_category_food.setHasFixedSize(true);
+
+
+
+
+        frameLayout_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CategoryView1.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
+        image_sreach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent search = new Intent(getApplicationContext(), Search.class);
+                startActivity(search);
+            }
+        });
     }
 }

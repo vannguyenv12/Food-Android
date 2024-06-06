@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Food"
         tools:targetApi="31">
+        <activity android:name=".Active.Search"
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".Active.ViewFood"
             android:exported="false"
             android:windowSoftInputMode="stateHidden"/>

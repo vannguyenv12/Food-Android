@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,6 +50,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class CartActivity extends AppCompatActivity {
+    Toolbar toolbar;
     private RecyclerView recyclerView;
     private CartAdapter cartAdapter;
     private String backendUrl = "http://10.0.2.2:3000";
@@ -60,16 +62,29 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cart);
-
+        toolbar = findViewById(R.id.cart_title);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         fetchCarts();
         fetchCartTotal();
         handlePayNow();
+        ActionBar();
 
     }
 
+
+    private void ActionBar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+    }
     private void handlePayNow() {
         Button button = findViewById(R.id.pay_now);
 
