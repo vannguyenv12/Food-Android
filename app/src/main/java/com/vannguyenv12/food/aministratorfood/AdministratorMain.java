@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +23,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.vannguyenv12.food.MainActivity;
 import com.vannguyenv12.food.R;
 import com.vannguyenv12.food.aministratorfood.AdapterFood.AdapterFood;
+import com.vannguyenv12.food.api.CategoryApiService;
 import com.vannguyenv12.food.api.FoodApiService;
+import com.vannguyenv12.food.modal.Category;
 import com.vannguyenv12.food.modal.Food;
 
 import java.util.ArrayList;
@@ -38,6 +42,7 @@ public class AdministratorMain extends AppCompatActivity {
     TextView txt_tenSP, txt_gia;
     Button btn_them, btn_capNhat, btn_xoa;
     List<Food> list;
+    List<Category> lstCategory;
     Food foodUpdate;
     public final String API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJwbWVuZGVucWtpYnp1cGRnbXRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU3NzQ3NjgsImV4cCI6MjAzMTM1MDc2OH0.H2sdGq2jA3buoYu5se5Xmi5930zPoaO3AcLK_CA-G7I";
     @Override
@@ -58,10 +63,12 @@ public class AdministratorMain extends AppCompatActivity {
 
         anhXa();
         loadFoodAministrator();
+
+
         btn_them.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), InsertFoodApi.class);
+                Intent i = new Intent(getApplicationContext(), InsertFood.class);
                 startActivity(i);
             }
         });
@@ -74,6 +81,7 @@ public class AdministratorMain extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), foodUpdate.getName(), Toast.LENGTH_LONG).show();
             }
         });
+
         btn_capNhat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +96,6 @@ public class AdministratorMain extends AppCompatActivity {
                     bundle.putSerializable("food",foodUpdate);
                     i.putExtras(bundle);
                     startActivity(i);
-//                    Toast.makeText(getApplicationContext(), foodUpdate.getName(), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -129,14 +136,14 @@ public class AdministratorMain extends AppCompatActivity {
 
     private void xoaMonAn(Retrofit retrofit, int id) {
         FoodApiService foodApiService = retrofit.create(FoodApiService.class);
-//        String strid = "id=eq."+id;
-        Call<Void> delete = foodApiService.deleteFood(API_KEY, id);
+        Call<Void> delete = foodApiService.deleteFood(API_KEY, "eq."+id);
         delete.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful())
                 {
                     Toast.makeText(getApplicationContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                    loadFoodAministrator();
                 }
             }
 
@@ -185,4 +192,9 @@ public class AdministratorMain extends AppCompatActivity {
             public void onFailure(Call<List<Food>> call, Throwable t) { }
         });
     }
+
+
+
+
+
 }

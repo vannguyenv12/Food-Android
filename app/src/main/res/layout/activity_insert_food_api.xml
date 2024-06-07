@@ -9,40 +9,31 @@
     tools:context=".aministratorfood.InsertFoodApi">
 
     <Button
-        android:id="@+id/btn_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="160dp"
-        android:text="Chọn ảnh"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imv" />
-
-    <Button
         android:id="@+id/btn_submit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="255dp"
         android:layout_marginEnd="10dp"
+        android:background="@drawable/custom_button"
         android:text="Thêm"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_img" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
 
     <EditText
         android:id="@+id/txt_name"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="10dp"
         android:ems="10"
         android:hint="Tên món ăn"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@drawable/background_blur_custom"
         android:inputType="text"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -54,32 +45,23 @@
     <EditText
         android:id="@+id/txt_price"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="52dp"
         android:layout_marginEnd="10dp"
         android:ems="10"
         android:hint="giá"
+        android:paddingStart="20dp"
         android:inputType="number"
         android:textColor="@color/white"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@drawable/background_blur_custom"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_name" />
-
-    <ImageView
-        android:id="@+id/imv"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_price"
-        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/textView4"
@@ -118,15 +100,17 @@
         app:layout_constraintBottom_toTopOf="@+id/txt_price"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="Hình"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/imv"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="44dp"
+        android:background="@drawable/background_blur_custom"
+        android:layout_marginEnd="10dp"
+        android:paddingLeft="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_price" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

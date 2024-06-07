@@ -38,8 +38,13 @@
         android:layout_marginStart="27dp"
         android:layout_marginTop="60dp"
         android:text="Thêm"
+        android:textColor="@color/white"
+        android:background="@drawable/custom_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+<!--         android:background="@drawable/custom_button"
+        android:backgroundTint="@null"-->
 
     <Button
         android:id="@+id/btn_capNhat"
@@ -48,6 +53,8 @@
         android:layout_marginStart="26dp"
         android:layout_marginTop="58dp"
         android:text="Cập nhật"
+        android:background="@drawable/custom_button"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/btnThem"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -58,6 +65,8 @@
         android:layout_marginStart="26dp"
         android:layout_marginTop="58dp"
         android:text="Xóa"
+        android:textColor="@color/white"
+        android:background="@drawable/custom_button"
         app:layout_constraintStart_toEndOf="@+id/btn_capNhat"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.vannguyenv12.food.aministratorfood.AdministratorMain;
-import com.vannguyenv12.food.aministratorfood.InsertFoodApi;
 import com.vannguyenv12.food.api.FoodApiService;
 import com.vannguyenv12.food.api.UserApiService;
 import com.vannguyenv12.food.modal.Food;
