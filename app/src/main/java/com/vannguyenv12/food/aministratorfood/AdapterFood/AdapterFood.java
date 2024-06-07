@@ -52,13 +52,16 @@ public class AdapterFood extends BaseAdapter {
         ImageView imv_hinh;
         TextView txt_tenSP, txt_gia;
 
+        formatTienVietNam formatTien = new formatTienVietNam();
         imv_hinh = convertView.findViewById(R.id.imv_hinh);
         txt_tenSP = convertView.findViewById(R.id.txt_tenSP);
         txt_gia = convertView.findViewById(R.id.txt_gia);
         Food food = list.get(position);
         Glide.with(context).load(food.getImage()).into(imv_hinh);
         txt_tenSP.setText(food.getName());
-        txt_gia.setText(food.getPrice()+"");
+        String giaBan = String.valueOf(formatTien.kieuTienVietNam().format(food.getPrice()));
+//        txt_gia.setText(food.getPrice()+"");
+        txt_gia.setText(giaBan);
 
         return convertView;
     }

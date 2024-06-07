@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.vannguyenv12.food.Active.DetailFood;
 import com.vannguyenv12.food.Adapter.FoodRecyclerViewAdapter;
 import com.vannguyenv12.food.R;
+import com.vannguyenv12.food.aministratorfood.AdapterFood.formatTienVietNam;
 import com.vannguyenv12.food.api.ItemClickListener;
 import com.vannguyenv12.food.modal.Food;
 
@@ -42,7 +43,9 @@ public class Item1Adapter extends RecyclerView.Adapter<Item1Adapter.MyViewHolder
     public void onBindViewHolder(@NonNull Item1Adapter.MyViewHolder holder, int position) {
         Food food = lst.get(position);
         holder.sp_ten.setText(food.getName());
-        holder.sp_gia.setText(food.getPrice() + " VNĐ");
+        formatTienVietNam formatTien = new formatTienVietNam();
+        String giaBan = String.valueOf(formatTien.kieuTienVietNam().format(food.getPrice()));
+        holder.sp_gia.setText(giaBan);
         Glide.with(context).load(food.getImage()).into(holder.sp_anh);
         holder.setItemClickListener(new ItemClickListener() {
             @Override

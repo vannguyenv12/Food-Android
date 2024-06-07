@@ -20,22 +20,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Food"
         tools:targetApi="31">
-        <activity android:name=".Active.Search"
+        <activity
+            android:name=".aministratorfood.InsertCategory"
+            android:exported="false" />
+        <activity
+            android:name=".Active.Search"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".Active.ViewFood"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".Active.ViewFood"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".Active.DetailFood"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".Active.DetailFood"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".Active.CategoryViewItem.CategoryView1"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".Active.CategoryViewItem.CategoryView1"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".CartActivity"
             android:exported="false" />
-
         <activity
             android:name=".Active.MainActivity"
             android:exported="true">
@@ -45,27 +51,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".newlistuser"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ListFood"
             android:exported="false" />
         <activity
             android:name=".ActivityLogin"
             android:exported="false" />
-
         <activity
             android:name=".aministratorfood.UpdateFoodApi"
             android:exported="false" />
         <activity
             android:name=".aministratorfood.AdministratorMain"
-            android:exported="false" />
-
-<!--        <activity-->
-<!--            android:name=".aministratorfood.InsertFoodApi"-->
-<!--            android:exported="false" />-->
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".aministratorfood.InsertFoodApi" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".aministratorfood.InsertFood"
             android:exported="false" />

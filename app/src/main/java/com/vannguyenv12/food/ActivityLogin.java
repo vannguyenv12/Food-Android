@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.vannguyenv12.food.Active.ViewFood;
+import com.vannguyenv12.food.aministratorfood.AdministratorMain;
 import com.vannguyenv12.food.api.UserApiService;
 import com.vannguyenv12.food.modal.Holder;
 import com.vannguyenv12.food.modal.User;
@@ -36,6 +37,7 @@ public class ActivityLogin extends AppCompatActivity {
     private static final String TAG = "ActivityLogin";
     private static final String API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJwbWVuZGVucWtpYnp1cGRnbXRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU3NzQ3NjgsImV4cCI6MjAzMTM1MDc2OH0.H2sdGq2jA3buoYu5se5Xmi5930zPoaO3AcLK_CA-G7I"; // Thay thế "your_api_key_here" bằng khóa API thực của bạn
 
+    User userAdmin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +110,8 @@ public class ActivityLogin extends AppCompatActivity {
                     for (User user : userList) {
                         if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                             loginSuccessful = true;
+                            Log.e("kt", user.getRole() + "Đây là quyền");
+                            userAdmin = user;
                             Holder.user = user;
                             break;
                         }
@@ -116,9 +120,14 @@ public class ActivityLogin extends AppCompatActivity {
                     if (loginSuccessful) {
                         // Đăng nhập thành công
                         Toast.makeText(ActivityLogin.this, "Login successful", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ActivityLogin.this, ViewFood.class);
-                        startActivity(intent);
-
+                        if(userAdmin.getRole().equals("owner"))
+                        {
+                            goToAdministrator();
+                        }
+                        else {
+                            Intent intent = new Intent(ActivityLogin.this, ViewFood.class);
+                            startActivity(intent);
+                        }
                         // Chuyển sang Activity khác hoặc xử lý logic sau khi đăng nhập thành công
                     } else {
                         // Đăng nhập thất bại
@@ -260,6 +269,12 @@ public class ActivityLogin extends AppCompatActivity {
 //            }
 //        });
 //    }
+
+    public void goToAdministrator()
+    {
+        Intent i = new Intent(getApplicationContext(), AdministratorMain.class);
+        startActivity(i);
+    }
 
 
 }

@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.nex3z.notificationbadge.NotificationBadge;
 import com.vannguyenv12.food.CartActivity;
 import com.vannguyenv12.food.R;
+import com.vannguyenv12.food.aministratorfood.AdapterFood.formatTienVietNam;
 import com.vannguyenv12.food.api.CartApiService;
 import com.vannguyenv12.food.modal.Cart;
 import com.vannguyenv12.food.modal.Food;
@@ -59,7 +60,9 @@ public class DetailFood extends AppCompatActivity {
     public void getData(){
         Food food = (Food)getIntent().getSerializableExtra("chitiet");
         ten_ct_sp.setText(food.getName());
-        gia_ct_sp.setText(food.getPrice() + " VNĐ");
+        formatTienVietNam formatTien = new formatTienVietNam();
+        String giaBan = String.valueOf(formatTien.kieuTienVietNam().format(food.getPrice()));
+        gia_ct_sp.setText(giaBan);
         Glide.with(getApplicationContext()).load(food.getImage()).into(image_ct_sp);
         mota_ct_sp.setText("MUAHAHAHAHAAH");
 

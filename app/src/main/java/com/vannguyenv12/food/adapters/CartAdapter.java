@@ -22,6 +22,7 @@ import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.paymentsheet.PaymentSheet;
 import com.vannguyenv12.food.CartActivity;
 import com.vannguyenv12.food.R;
+import com.vannguyenv12.food.aministratorfood.AdapterFood.formatTienVietNam;
 import com.vannguyenv12.food.api.CartApiService;
 import com.vannguyenv12.food.api.FoodApiService;
 import com.vannguyenv12.food.modal.Cart;
@@ -61,7 +62,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void onBindViewHolder(@NonNull CartViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Cart cartItem = cartItems.get(position);
         holder.pizzaName.setText(cartItem.getProductName());
-        holder.pizzaPrice.setText("$" + cartItem.getPrice());
+        formatTienVietNam formatTien = new formatTienVietNam();
+        String giaBan = String.valueOf(formatTien.kieuTienVietNam().format(cartItem.getPrice()));
+        holder.pizzaPrice.setText(giaBan);
         holder.quantityText.setText(String.valueOf(cartItem.getQuantity()));
         // Giả định rằng tất cả các mục đều dùng chung một hình ảnh
         Glide.with(context).load(cartItem.getProductImage()).into(holder.pizzaImage);

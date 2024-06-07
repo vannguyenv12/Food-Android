@@ -10,8 +10,10 @@
     <Button
         android:id="@+id/pay_now"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="Pay now"
+        android:textColor="@color/white"
+        android:background="@drawable/custom_button"
 />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
