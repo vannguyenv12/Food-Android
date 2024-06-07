@@ -1,6 +1,8 @@
 package com.vannguyenv12.food.api;
 
 import com.vannguyenv12.food.modal.Food;
+import com.vannguyenv12.food.modal.FoodInsert;
+import com.vannguyenv12.food.modal.FoodNoID;
 
 import java.util.List;
 
@@ -41,18 +43,31 @@ public interface FoodApiService {
     @POST("rest/v1/food")
     Call<Food> createFood(@Header("apikey") String apiKey, @Header("Content-Type") String contentType, @Body Food food);
 
+    @POST("rest/v1/food")
+    Call<Void> createFoodKB(@Header("apikey") String apiKey, @Header("Content-Type") String contentType, @Body FoodInsert food);
+
+
+
     @PATCH("rest/v1/food")
-    Call<Void> updateFood(
+    Call<Void> updateFoodKB(
             @Header("apikey") String apiKey,
             @Header("Content-Type") String contentType,
-            @Query("id") Integer id,
+            @Query("id") String id,//eq.id
             @Body Food food
+    );
+
+    @PATCH("rest/v1/food")
+    Call<Void> updateFoodNameAndPrice(
+            @Header("apikey") String apiKey,
+            @Header("Content-Type") String contentType,
+            @Query("id") String id,//eq.id
+            @Body FoodNoID food
     );
 
     @DELETE("rest/v1/food")
     Call<Void> deleteFood(
             @Header("apikey") String apiKey,
-            @Query("id") Integer id
+            @Query("id") String id//eq.id
     );
 
 }

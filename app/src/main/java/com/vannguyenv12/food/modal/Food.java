@@ -12,11 +12,35 @@ public class Food implements Serializable {
     public Food() {
     }
 
+    public Food(int id, String name, double price, String image, int categoryId) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.image = image;
+        this.categoryId = categoryId;
+    }
     public Food(String name, double price, String image, int categoryId) {
         this.name = name;
         this.price = price;
         this.image = image;
         this.categoryId = categoryId;
+    }
+
+//    Mới thêm
+public Food(String name, double price, int categoryId) {
+    this.name = name;
+    this.price = price;
+    this.categoryId = categoryId;
+}
+
+    public Food(int id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+    public Food(String name, double price) {
+        this.name = name;
+        this.price = price;
     }
 
     public String getName() {

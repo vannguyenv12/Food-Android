@@ -51,6 +51,11 @@ dependencies {
     // Dependency cho Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //    Thêm dòng này vào
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+//    Hết dòng thêm
+
     implementation 'com.squareup.retrofit2:converter-jackson:2.8.0'
     //json
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.2'
@@ -68,5 +73,6 @@ dependencies {
     // Optional: Thêm Jackson core nếu chưa có
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
 }
+
 
 
