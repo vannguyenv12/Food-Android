@@ -29,6 +29,8 @@ import com.vannguyenv12.food.utils.Constant;
 import com.vannguyenv12.food.utils.RetrofitClient;
 import com.vannguyenv12.food.utils.Utils;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -105,34 +107,75 @@ public class DetailFood extends AppCompatActivity {
     }
 
     private void handleAddCart() {
-        CartApiService apiService =  RetrofitClient.retrofit.create(CartApiService.class);
+        CartApiService apiService = RetrofitClient.retrofit.create(CartApiService.class);
 
-        Food food = (Food)getIntent().getSerializableExtra("chitiet");
+        Food food = (Food) getIntent().getSerializableExtra("chitiet");
 
-        Cart newCart = new Cart(Utils.generateRandomNumber(),food.getId(), food.getName(), food.getPrice(), 1, Holder.user.getId(), food.getImage());
+        Cart newCart = new Cart(Utils.generateRandomNumber(), food.getId(), food.getName(), food.getPrice(), 1, Holder.user.getId(), food.getImage());
 
         btnThemvaoGioHang.setOnClickListener(view -> {
-            Call<Void> call = apiService.createCart(Constant.API_KEY, newCart);
+            // Check cart
+            Call<List<Cart>> existingCarts = apiService.getCartsById(Constant.API_KEY, "eq." + Holder.user.getId(), "eq." + food.getId());
 
-            call.enqueue(new Callback<Void>() {
+            existingCarts.enqueue(new Callback<List<Cart>>() {
                 @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    if (response.isSuccessful()) {
-                        Log.d("Retrofit", "Cart created successfully");
-                        Intent intent = new Intent(DetailFood.this, CartActivity.class);
-                        startActivity(intent);
+                public void onResponse(Call<List<Cart>> call, Response<List<Cart>> response) {
+                    if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                        Cart existCart = response.body().get(0);
+                        Log.d("EXIST", "HIT HERE");
+
+                        int newQuantity = existCart.getQuantity() + 1;
+                        existCart.setQuantity(newQuantity);
+
+                        Call<Void> updateCall = apiService.updateSingleCartQuantity(Constant.API_KEY, "application/json", "eq." + Holder.user.getId(), "eq." + food.getId(), existCart);
+
+                        updateCall.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (response.isSuccessful()) {
+                                    Log.d("Retrofit", "Cart updated successfully");
+                                    Intent intent = new Intent(DetailFood.this, CartActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    Log.d("Retrofit", "Failed to update cart: " + response.code());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Log.d("Update Cart", "Error: " + t.getMessage());
+                            }
+                        });
                     } else {
-                        Log.d("Retrofit", "Failed to create cart: " + response.code());
+                        // Product does not exist in the cart, add new cart item
+                        Call<Void> createCall = apiService.createCart(Constant.API_KEY, newCart);
+
+                        createCall.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (response.isSuccessful()) {
+                                    Log.d("Retrofit", "Cart created successfully");
+                                    Intent intent = new Intent(DetailFood.this, CartActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    Log.d("Retrofit", "Failed to create cart: " + response.code());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Log.d("Retrofit", "Error: " + t.getMessage());
+                            }
+                        });
                     }
                 }
 
                 @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    Log.d("Retrofit", "Error: " + t.getMessage());
+                public void onFailure(Call<List<Cart>> call, Throwable t) {
+                    Log.d("Error", "Failed to check cart: " + t.getMessage());
                 }
             });
         });
-
     }
 
 }

@@ -18,6 +18,11 @@ public interface CartApiService {
     @GET("rest/v1/carts")
     Call<List<Cart>> getCarts(@Header("apikey") String apiKey, @Query("userId") String userId);
 
+    @GET("rest/v1/carts")
+    Call<List<Cart>> getCartsById(@Header("apikey") String apiKey,
+                                  @Query("userId") String userId,
+                                  @Query("productId") String productId);
+
     @POST("rest/v1/carts")
     Call<Void> createCart(
             @Header("apikey") String apiKey,
@@ -37,4 +42,11 @@ public interface CartApiService {
                                   @Header("Content-Type") String contentType,
                                   @Query("id") String id,
                                   @Body Cart cart);
+
+    @PATCH("rest/v1/carts")
+    Call<Void> updateSingleCartQuantity(@Header("apikey") String apiKey,
+                                        @Header("Content-Type") String contentType,
+                                        @Query("userId") String userId,
+                                        @Query("productId") String productId,
+                                        @Body Cart cart);
 }
