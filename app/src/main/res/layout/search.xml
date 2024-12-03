@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgrounf"
+    tools:context=".Active.ViewFood">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_search"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#00ACC1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/white"
+        app:title="Tìm Kiếm"/>
+    <EditText
+        android:textSize="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/txt_search"
+        android:hint="Nhập tên sản phẩm cần tìm"
+        android:textColorHint="@color/white"
+        android:background="@drawable/background_blur_custom"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_search"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_view_search"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_search"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-8dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

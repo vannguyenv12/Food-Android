@@ -1,10 +1,12 @@
 package com.vannguyenv12.food;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,13 +25,17 @@ import com.android.volley.toolbox.Volley;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.paymentsheet.PaymentSheet;
 import com.stripe.android.paymentsheet.PaymentSheetResult;
+import com.vannguyenv12.food.Active.DetailFood;
+import com.vannguyenv12.food.Active.ViewFood;
 import com.vannguyenv12.food.adapters.CartAdapter;
 import com.vannguyenv12.food.api.CartApiService;
 import com.vannguyenv12.food.api.FoodApiService;
 import com.vannguyenv12.food.modal.Cart;
 import com.vannguyenv12.food.modal.Food;
+import com.vannguyenv12.food.modal.Holder;
 import com.vannguyenv12.food.utils.Constant;
 import com.vannguyenv12.food.utils.RetrofitClient;
+import com.vannguyenv12.food.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +51,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class CartActivity extends AppCompatActivity {
+    Toolbar toolbar;
     private RecyclerView recyclerView;
     private CartAdapter cartAdapter;
     private String backendUrl = "http://10.0.2.2:3000";
@@ -56,16 +63,29 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cart);
-
+        toolbar = findViewById(R.id.cart_title);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         fetchCarts();
         fetchCartTotal();
         handlePayNow();
+        ActionBar();
 
     }
 
+
+    private void ActionBar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+    }
     private void handlePayNow() {
         Button button = findViewById(R.id.pay_now);
 
@@ -94,6 +114,9 @@ public class CartActivity extends AppCompatActivity {
         }
 
         if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
+            Utils.removeAllCarts(String.valueOf(Holder.user.getId()));
+            Intent intent = new Intent(CartActivity.this, ViewFood.class);
+            startActivity(intent);
             Toast.makeText(this, "Completed", Toast.LENGTH_SHORT).show();
         }
     }
@@ -147,8 +170,9 @@ public class CartActivity extends AppCompatActivity {
     private void fetchCarts() {
         CartApiService service = RetrofitClient.retrofit.create(CartApiService.class);
 
+        System.out.println("check user id: " + String.valueOf(Holder.user.getId()));
 
-        Call<List<Cart>> call = service.getCarts(Constant.API_KEY);
+        Call<List<Cart>> call = service.getCarts(Constant.API_KEY, "eq." + String.valueOf(Holder.user.getId()));
 
         call.enqueue(new Callback<List<Cart>>() {
             @Override
@@ -176,7 +200,7 @@ public class CartActivity extends AppCompatActivity {
         final int[] cartTotal = {0};
         CartApiService service = RetrofitClient.retrofit.create(CartApiService.class);
 
-        Call<List<Cart>> call = service.getCarts(Constant.API_KEY);
+        Call<List<Cart>> call = service.getCarts(Constant.API_KEY, "eq." + String.valueOf(Holder.user.getId()));
 
         call.enqueue(new Callback<List<Cart>>() {
             @Override

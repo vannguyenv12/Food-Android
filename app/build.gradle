@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:8.2.1"
+    }
+}
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -26,6 +35,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 dependencies {
@@ -38,8 +48,31 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
 
+    // Dependency cho Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //    Thêm dòng này vào
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+//    Hết dòng thêm
+
+    implementation 'com.squareup.retrofit2:converter-jackson:2.8.0'
+    //json
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.2'
+    //glider load image
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
     implementation 'com.stripe:stripe-android:20.0.0'
     implementation 'com.android.volley:volley:1.2.1'
+    //notification-cart
+    implementation 'com.nex3z:notification-badge:1.0.4'
+
+
+    // Dependency cho Jackson Converter
+    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
+
+    // Optional: Thêm Jackson core nếu chưa có
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
 }
+
+
+
